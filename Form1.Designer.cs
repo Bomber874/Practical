@@ -34,7 +34,7 @@
             this.orderNumber = new System.Windows.Forms.NumericUpDown();
             this.orderLabel = new System.Windows.Forms.Label();
             this.datePanel = new System.Windows.Forms.Panel();
-            this.dateInput = new System.Windows.Forms.MaskedTextBox();
+            this.dateInput = new System.Windows.Forms.DateTimePicker();
             this.dateLabel = new System.Windows.Forms.Label();
             this.namePanel = new System.Windows.Forms.Panel();
             this.nameInput = new System.Windows.Forms.TextBox();
@@ -46,11 +46,13 @@
             this.serviceTypeInput = new System.Windows.Forms.ComboBox();
             this.typeLabel = new System.Windows.Forms.Label();
             this.timePanel = new System.Windows.Forms.Panel();
+            this.timeInput = new System.Windows.Forms.MaskedTextBox();
             this.timeLabel = new System.Windows.Forms.Label();
             this.discountPanel = new System.Windows.Forms.Panel();
             this.discountInput = new System.Windows.Forms.NumericUpDown();
             this.discountLabel = new System.Windows.Forms.Label();
             this.costPanel = new System.Windows.Forms.Panel();
+            this.costInput = new System.Windows.Forms.TextBox();
             this.costLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.donePanel = new System.Windows.Forms.CheckBox();
@@ -66,8 +68,7 @@
             this.discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.done = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.timeInput = new System.Windows.Forms.MaskedTextBox();
-            this.costInput = new System.Windows.Forms.TextBox();
+            this.saveTableToFile = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.orderPanel.SuspendLayout();
@@ -89,16 +90,18 @@
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.statusBarText, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.statusBarText, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.button1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.saveTableToFile, 0, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(958, 496);
             this.tableLayoutPanel1.TabIndex = 0;
@@ -117,7 +120,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(952, 207);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(952, 187);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // orderPanel
@@ -136,7 +139,7 @@
             this.orderNumber.Name = "orderNumber";
             this.orderNumber.Size = new System.Drawing.Size(80, 20);
             this.orderNumber.TabIndex = 1;
-            this.orderNumber.ValueChanged += new System.EventHandler(this.orderNumber_ValueChanged);
+            this.orderNumber.Leave += new System.EventHandler(this.orderNumber_Leave);
             // 
             // orderLabel
             // 
@@ -160,13 +163,12 @@
             // dateInput
             // 
             this.dateInput.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dateInput.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateInput.Location = new System.Drawing.Point(0, 20);
-            this.dateInput.Mask = "00/00/0000";
             this.dateInput.Name = "dateInput";
             this.dateInput.Size = new System.Drawing.Size(80, 20);
             this.dateInput.TabIndex = 1;
-            this.dateInput.ValidatingType = typeof(System.DateTime);
-            this.dateInput.TextChanged += new System.EventHandler(this.dateInput_TextChanged);
+            this.dateInput.Leave += new System.EventHandler(this.dateInput_Leave);
             // 
             // dateLabel
             // 
@@ -194,7 +196,7 @@
             this.nameInput.Name = "nameInput";
             this.nameInput.Size = new System.Drawing.Size(160, 20);
             this.nameInput.TabIndex = 1;
-            this.nameInput.TextChanged += new System.EventHandler(this.nameInput_TextChanged);
+            this.nameInput.Leave += new System.EventHandler(this.nameInput_Leave);
             // 
             // nameLabel
             // 
@@ -222,7 +224,7 @@
             this.serviceInput.Name = "serviceInput";
             this.serviceInput.Size = new System.Drawing.Size(160, 20);
             this.serviceInput.TabIndex = 1;
-            this.serviceInput.TextChanged += new System.EventHandler(this.serviceInput_TextChanged);
+            this.serviceInput.Leave += new System.EventHandler(this.serviceInput_Leave);
             // 
             // serviceLabel
             // 
@@ -253,7 +255,7 @@
             this.serviceTypeInput.Name = "serviceTypeInput";
             this.serviceTypeInput.Size = new System.Drawing.Size(160, 21);
             this.serviceTypeInput.TabIndex = 1;
-            this.serviceTypeInput.SelectionChangeCommitted += new System.EventHandler(this.serviceTypeInput_SelectionChangeCommitted);
+            this.serviceTypeInput.Leave += new System.EventHandler(this.serviceTypeInput_Leave);
             // 
             // typeLabel
             // 
@@ -273,6 +275,17 @@
             this.timePanel.Name = "timePanel";
             this.timePanel.Size = new System.Drawing.Size(160, 40);
             this.timePanel.TabIndex = 6;
+            // 
+            // timeInput
+            // 
+            this.timeInput.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.timeInput.Location = new System.Drawing.Point(0, 20);
+            this.timeInput.Mask = "Дней:00\\,Часов:00\\,Минут:00\\.";
+            this.timeInput.Name = "timeInput";
+            this.timeInput.Size = new System.Drawing.Size(160, 20);
+            this.timeInput.TabIndex = 1;
+            this.timeInput.ValidatingType = typeof(System.DateTime);
+            this.timeInput.Leave += new System.EventHandler(this.timeInput_Leave);
             // 
             // timeLabel
             // 
@@ -300,7 +313,7 @@
             this.discountInput.Name = "discountInput";
             this.discountInput.Size = new System.Drawing.Size(55, 20);
             this.discountInput.TabIndex = 1;
-            this.discountInput.ValueChanged += new System.EventHandler(this.discountInput_ValueChanged);
+            this.discountInput.Leave += new System.EventHandler(this.discountInput_Leave);
             // 
             // discountLabel
             // 
@@ -320,6 +333,15 @@
             this.costPanel.Name = "costPanel";
             this.costPanel.Size = new System.Drawing.Size(105, 40);
             this.costPanel.TabIndex = 7;
+            // 
+            // costInput
+            // 
+            this.costInput.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.costInput.Location = new System.Drawing.Point(0, 20);
+            this.costInput.Name = "costInput";
+            this.costInput.Size = new System.Drawing.Size(105, 20);
+            this.costInput.TabIndex = 1;
+            this.costInput.Leave += new System.EventHandler(this.costInput_Leave);
             // 
             // costLabel
             // 
@@ -363,7 +385,7 @@
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(3, 216);
+            this.button1.Location = new System.Drawing.Point(3, 196);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(952, 34);
             this.button1.TabIndex = 2;
@@ -384,10 +406,10 @@
             this.discount,
             this.cost,
             this.done});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 256);
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 236);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(952, 207);
+            this.dataGridView1.Size = new System.Drawing.Size(952, 172);
             this.dataGridView1.TabIndex = 3;
             // 
             // order
@@ -444,25 +466,16 @@
             this.done.Name = "done";
             this.done.ReadOnly = true;
             // 
-            // timeInput
+            // saveTableToFile
             // 
-            this.timeInput.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.timeInput.Location = new System.Drawing.Point(0, 20);
-            this.timeInput.Mask = "Дней:00 Часов:00 Минут:00";
-            this.timeInput.Name = "timeInput";
-            this.timeInput.Size = new System.Drawing.Size(160, 20);
-            this.timeInput.TabIndex = 1;
-            this.timeInput.ValidatingType = typeof(System.DateTime);
-            this.timeInput.TextChanged += new System.EventHandler(this.maskedTextBox1_TextChanged);
-            // 
-            // costInput
-            // 
-            this.costInput.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.costInput.Location = new System.Drawing.Point(0, 20);
-            this.costInput.Name = "costInput";
-            this.costInput.Size = new System.Drawing.Size(105, 20);
-            this.costInput.TabIndex = 1;
-            this.costInput.TextChanged += new System.EventHandler(this.costInput_TextChanged);
+            this.saveTableToFile.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.saveTableToFile.Location = new System.Drawing.Point(3, 429);
+            this.saveTableToFile.Name = "saveTableToFile";
+            this.saveTableToFile.Size = new System.Drawing.Size(952, 34);
+            this.saveTableToFile.TabIndex = 4;
+            this.saveTableToFile.Text = "Выгрузить таблицу в файл";
+            this.saveTableToFile.UseVisualStyleBackColor = true;
+            this.saveTableToFile.Click += new System.EventHandler(this.saveTableToFile_Click);
             // 
             // Form1
             // 
@@ -479,7 +492,6 @@
             this.orderPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.orderNumber)).EndInit();
             this.datePanel.ResumeLayout(false);
-            this.datePanel.PerformLayout();
             this.namePanel.ResumeLayout(false);
             this.namePanel.PerformLayout();
             this.servicePanel.ResumeLayout(false);
@@ -506,7 +518,6 @@
         private System.Windows.Forms.NumericUpDown orderNumber;
         private System.Windows.Forms.Label orderLabel;
         private System.Windows.Forms.Panel datePanel;
-        private System.Windows.Forms.MaskedTextBox dateInput;
         private System.Windows.Forms.Label dateLabel;
         private System.Windows.Forms.Panel namePanel;
         private System.Windows.Forms.TextBox nameInput;
@@ -540,6 +551,8 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn done;
         private System.Windows.Forms.MaskedTextBox timeInput;
         private System.Windows.Forms.TextBox costInput;
+        private System.Windows.Forms.DateTimePicker dateInput;
+        private System.Windows.Forms.Button saveTableToFile;
     }
 }
 

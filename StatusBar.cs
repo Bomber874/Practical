@@ -12,9 +12,11 @@ namespace Practical
     public class StatusBar
     {
         RichTextBox _statusBar;
+        readonly string FileName;
         public StatusBar(RichTextBox richTextBox)
         {
             _statusBar = richTextBox;
+            FileName = $"{DateTime.Now.ToShortDateString().Replace('.', '-')}-{DateTime.Now.ToShortTimeString().Replace(':', '-')}.log";
         }
         public enum TYPE
         {
@@ -23,10 +25,9 @@ namespace Practical
             INFO,
             SHUTDOWN
         }
-        string _log = "";
-        public void WriteLog()
+        public void WriteLog(string message)
         {
-            File.WriteAllText($"{DateTime.Now.ToShortDateString().Replace('.','-')}-{DateTime.Now.ToShortTimeString().Replace(':','-')}.log", _log);
+            File.AppendAllLines(FileName, new string[]{ message });
         }
         public void Show(string message, TYPE type)
         {
@@ -59,10 +60,10 @@ namespace Practical
                     break;
             }
             string ToShow = $"{DateTime.Now.ToLongTimeString()}{prefix}: {message}";
-            _log += ToShow + "\n";
             _statusBar.Text = ToShow;
             _statusBar.SelectAll();
             _statusBar.SelectionColor = color;
+            WriteLog(ToShow);
         }
     }
 }

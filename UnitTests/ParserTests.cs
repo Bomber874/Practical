@@ -9,8 +9,10 @@ namespace UnitTests
     {
         [TestMethod]
         [DataRow("31.12.2022")]
-        [DataRow("01.01.1999")]
+        [DataRow("01.01.1900")]
         [DataRow("20.10.2000")]
+        [DataRow("31.12.2099")]
+        [DataRow("01.01.1900")]
         public void DateTest(string input)
         {
             Assert.IsTrue(Parser.Date(input));
@@ -20,8 +22,8 @@ namespace UnitTests
         [DataRow("00.01.1999")]
         [DataRow("01.00.2000")]
         [DataRow("01.00.1800")]
-        [DataRow("01.01.20000")] // Скорее всего излишне, т.к. маска в поле ввода не позволит ввести >4 символов в году
-        [DataRow("00.00.0000")]
+        [DataRow("01.01.20100")] // Скорее всего излишне, т.к. маска в поле ввода не позволит ввести >4 символов в году
+        [DataRow("01.01.1899")]
         [DataRow("12,12.2002")]
         [DataRow("11.d1.2000")]
         public void InvalidDateTest(string input)

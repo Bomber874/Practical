@@ -17,13 +17,19 @@ namespace Practical
 
         public static bool Time(string inp)
         {
-            Regex r = new Regex(@"^Дней:\d{1,2} Часов:\d{1,2} Минут:\d{1,2}$");
+            Regex r = new Regex(@"^Дней:\d{1,2},Часов:\d{1,2},Минут:\d{1,2}\.$");
             return r.IsMatch(inp);
         }
 
         public static bool Cost(string inp)
         {
             Regex r = new Regex(@"^\d+(?:[\,\.]\d+)?$");
+            return r.IsMatch(inp);
+        }
+
+        public static bool File(string inp)
+        {
+            Regex r = new Regex(@"\w+(\.csv)?");
             return r.IsMatch(inp);
         }
 
