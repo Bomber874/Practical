@@ -32,9 +32,9 @@ namespace UnitTests
         }
 
         [TestMethod]
-        [DataRow("Дней:01 Часов:11 Минут:15")]
-        [DataRow("Дней:00 Часов:00 Минут:00")]
-        [DataRow("Дней:99 Часов:99 Минут:99")]
+        [DataRow("Дней:01,Часов:11,Минут:15.")]
+        [DataRow("Дней:00,Часов:00,Минут:00.")]
+        [DataRow("Дней:99,Часов:99,Минут:99.")]
         public void TimeTest(string input)
         {
             Assert.IsTrue(Parser.Time(input));

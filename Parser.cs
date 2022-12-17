@@ -29,7 +29,12 @@ namespace Practical
 
         public static bool File(string inp)
         {
-            Regex r = new Regex(@"\w+(\.csv)?");
+            Regex r = new Regex(@"^\w+(\.csv)?$");
+            return r.IsMatch(inp);
+        }
+        public static bool Name(string inp)
+        { 
+            Regex r = new Regex(@"^[^\;]+$");
             return r.IsMatch(inp);
         }
 

@@ -88,14 +88,14 @@ namespace Practical
             //    Notify("Некорректная дата услуги", StatusBar.TYPE.ERROR);
             //    return;
             //}
-            if (nameInput.Text == "")
+            if (!Parser.Name(nameInput.Text))
             {
-                Notify("Выберите ФИО/Название", StatusBar.TYPE.ERROR);
+                Notify("Некорректное ФИО/Название", StatusBar.TYPE.ERROR);
                 return;
             }
-            if (serviceInput.Text == "")
+            if (!Parser.Name(serviceInput.Text))
             {
-                Notify("Введите название услуги", StatusBar.TYPE.ERROR);
+                Notify("Некорректное название услуги", StatusBar.TYPE.ERROR);
                 return;
             }
             if (serviceTypeInput.Text == "")

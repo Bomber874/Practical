@@ -33,7 +33,7 @@ namespace Practical
                     streamWriter.Write(Environment.NewLine);
                 }
                 streamWriter.Close();
-                streamWriter.Dispose(); // Возможно было бы лучше, если вместо return я сохранял значение в переменную, а потом освобождал память и возвращал значение переменной за try и catch
+                streamWriter.Dispose();
                 return true;
             }
             catch(Exception ex)
