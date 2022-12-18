@@ -8,6 +8,8 @@ namespace Practical
     public partial class Form1 : Form
     {
         StatusBar statusBar;
+        public string logFileName = "";
+        bool AllowEdit = false; // Необходимо для избежания случайного ввода данных
 
         void Notify(string message, StatusBar.TYPE type)
         {
@@ -19,22 +21,68 @@ namespace Practical
         public Form1()
         {
             InitializeComponent();
-            statusBar = new StatusBar(statusBarText);
+            logFileName = $"logs/{DateTime.Now.ToShortDateString().Replace('.', '-')}-{DateTime.Now.ToShortTimeString().Replace(':', '-')}.log";
+            statusBar = new StatusBar(statusBarText, logFileName);
             statusBar.Show("Программа запущена", StatusBar.TYPE.OK);
+        }
+
+        string[] ReadText(string filePath)
+        {
+            string[] txt = { };
+            try
+            {
+                txt = File.ReadAllLines(filePath);
+                return txt;
+            }
+            catch (FileNotFoundException)
+            {
+                Notify("Не найден файл "+filePath, StatusBar.TYPE.ERROR);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Notify("Непредвиденная ошибка:" + ex.Message, StatusBar.TYPE.ERROR);
+                return null;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            var txt = File.ReadAllLines("input.txt");
-            foreach (string service in txt)
+            try
             {
-                serviceTypeInput.Items.Add(service);
+                var txt = File.ReadAllLines("input.txt");
+
+                foreach (string service in txt)
+                {
+                    serviceTypeInput.Items.Add(service);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                Notify("Не найден файл input.txt", StatusBar.TYPE.ERROR);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                Notify("Непредвиденная ошибка:"+ex.Message, StatusBar.TYPE.ERROR);
+                this.Close();
             }
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             statusBar.Show("Завершение работы, причина:" + e.CloseReason.ToString(), StatusBar.TYPE.SHUTDOWN);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            var result = MessageBox.Show("Вы уверены?", "Выйти из программы",
+                          MessageBoxButtons.YesNo,
+                          MessageBoxIcon.Question);
+            if (result != DialogResult.Yes)
+            {
+                e.Cancel = true;
+            }
         }
 
         private void orderNumber_Leave(object sender, EventArgs e)
@@ -133,7 +181,7 @@ namespace Practical
             statusBar.Show("Объём услуги:" + timeInput.Text, StatusBar.TYPE.INFO);
         }
 
-        private void saveTableToFile_Click(object sender, EventArgs e)
+        void saveRequest()
         {
             SaveForm saveForm = new SaveForm();
             saveForm.ShowDialog(); // saveForm.Show(); Не подойдет, т.к. тогда выполнение кода продолжится
@@ -145,5 +193,110 @@ namespace Practical
                     statusBar.Show($"Ошибка при выгрузке файла{saveForm.FileName}", StatusBar.TYPE.ERROR);
             }
         }
+
+        private void saveTableToFile_Click(object sender, EventArgs e)
+        {
+            saveRequest();
+        }
+
+        private void saveMenuItem_Click(object sender, EventArgs e)
+        {
+            saveRequest();
+        }
+
+        private void clearMenuItem_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Вы уверены?\nИнформация удалится без возможности восстановления", "Очистить таблицу",
+                          MessageBoxButtons.YesNo,
+                          MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                for (int i = 0; i < dataGridView1.ColumnCount; i++)
+                {
+                    for (int j = 0; j < dataGridView1.RowCount; j++)
+                    {
+                        dataGridView1[i, j].Value = null;
+                    }
+                }
+            }
+            dataGridView1.RowCount = 1;
+        }
+
+        string oldCellValue = "";
+        private void dataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (!AllowEdit)
+            {
+                e.Cancel = true;
+                return;
+            }
+            if (dataGridView1[e.ColumnIndex, e.RowIndex].Value != null)
+            {
+                oldCellValue = dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString();
+            }
+            else
+            {
+                oldCellValue = "";
+            }
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if(dataGridView1[e.ColumnIndex, e.RowIndex].Value == null)
+            {
+                statusBar.Show($"Ячейка[{e.ColumnIndex}:{e.RowIndex}] Очищенна. Старое значение:{oldCellValue}", StatusBar.TYPE.INFO);
+                return;
+            }
+            if(oldCellValue != dataGridView1[e.ColumnIndex, e.RowIndex].Value.ToString())
+                statusBar.Show($"Ячейка[{e.ColumnIndex}:{e.RowIndex}] Старое значение:{oldCellValue}, Новое значение:{dataGridView1[e.ColumnIndex, e.RowIndex].Value}", StatusBar.TYPE.INFO);
+        }
+
+        bool _isFirstTime = true;
+        private void enableEditMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_isFirstTime)
+            {
+                var result = MessageBox.Show("Включайте редактирование только в том случае, если вы проинструктированы\n"+
+                    "О последствиях неверного ввода данных в таблицу\n"+
+                    "Если потребность в редактировании таблицы отпала, отключите её редактирование\n"+
+                    "Включить редактирование?", "Внимание, опасность",
+                          MessageBoxButtons.YesNo,
+                          MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    statusBar.Show("Включено редактирование таблицы", StatusBar.TYPE.OK);
+                    AllowEdit = true;
+                    _isFirstTime = false; // Чтобы не спрашивала каждый раз
+                }
+            }
+            
+        }
+
+        private void disableMenuItem_Click(object sender, EventArgs e)
+        {
+            statusBar.Show("Отключено редактирование таблицы", StatusBar.TYPE.OK);
+            AllowEdit = false;
+        }
+
+        private void openLogButton1_Click(object sender, EventArgs e)
+        {
+            var log = ReadText(logFileName); if (log == null)
+            {
+                return;
+            }
+            LogViewForm viewForm = new LogViewForm(log);
+            viewForm.ShowDialog();
+        }
+
+        //private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    if (!dataGridView1.Focused) // Это событие вызывается не только при изменении значения клетки пользователем
+        //        return;
+        //    MessageBox.Show(sender.ToString());
+        //    statusBar.Show($"Ячейка[{e.ColumnIndex}:{e.RowIndex}] Новое значение:{dataGridView1[e.ColumnIndex,e.RowIndex].Value}", StatusBar.TYPE.INFO);
+
+        //}
+
+
     }
 }

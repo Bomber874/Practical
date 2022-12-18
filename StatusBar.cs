@@ -12,11 +12,12 @@ namespace Practical
     public class StatusBar
     {
         RichTextBox _statusBar;
-        readonly string FileName;
-        public StatusBar(RichTextBox richTextBox)
+        public readonly string FileName;
+        public StatusBar(RichTextBox richTextBox, string fileName)
         {
             _statusBar = richTextBox;
-            FileName = $"{DateTime.Now.ToShortDateString().Replace('.', '-')}-{DateTime.Now.ToShortTimeString().Replace(':', '-')}.log";
+            Directory.CreateDirectory("logs");
+            FileName = fileName;
         }
         public enum TYPE
         {
@@ -29,6 +30,7 @@ namespace Practical
         {
             File.AppendAllLines(FileName, new string[]{ message });
         }
+
         public void Show(string message, TYPE type)
         {
             if (message.Trim() == "")

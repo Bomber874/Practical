@@ -92,7 +92,7 @@
             this.fileNameInput.Size = new System.Drawing.Size(271, 29);
             this.fileNameInput.TabIndex = 4;
             // 
-            // SaveFormcs
+            // SaveForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -100,7 +100,7 @@
             this.Controls.Add(this.fileNameInput);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "SaveFormcs";
+            this.Name = "SaveForm";
             this.Text = "SaveFormcs";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);

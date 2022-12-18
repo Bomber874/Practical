@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.orderPanel = new System.Windows.Forms.Panel();
@@ -69,6 +70,14 @@
             this.cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.done = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.saveTableToFile = new System.Windows.Forms.Button();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.saveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openLogButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.enableEditMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disableMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.orderPanel.SuspendLayout();
@@ -83,27 +92,29 @@
             this.costPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.statusBarText, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.saveTableToFile, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.statusBarText, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.button1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.saveTableToFile, 0, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(958, 496);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(921, 496);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -118,9 +129,9 @@
             this.flowLayoutPanel1.Controls.Add(this.costPanel);
             this.flowLayoutPanel1.Controls.Add(this.panel1);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 23);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(952, 187);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(915, 177);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // orderPanel
@@ -358,7 +369,7 @@
             this.panel1.Controls.Add(this.donePanel);
             this.panel1.Location = new System.Drawing.Point(114, 49);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(105, 40);
+            this.panel1.Size = new System.Drawing.Size(68, 40);
             this.panel1.TabIndex = 8;
             // 
             // donePanel
@@ -367,7 +378,7 @@
             this.donePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.donePanel.Location = new System.Drawing.Point(0, 0);
             this.donePanel.Name = "donePanel";
-            this.donePanel.Size = new System.Drawing.Size(105, 40);
+            this.donePanel.Size = new System.Drawing.Size(68, 40);
             this.donePanel.TabIndex = 0;
             this.donePanel.Text = "Услуга оказана";
             this.donePanel.UseVisualStyleBackColor = true;
@@ -378,16 +389,16 @@
             this.statusBarText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.statusBarText.Location = new System.Drawing.Point(3, 469);
             this.statusBarText.Name = "statusBarText";
-            this.statusBarText.Size = new System.Drawing.Size(952, 24);
+            this.statusBarText.Size = new System.Drawing.Size(915, 24);
             this.statusBarText.TabIndex = 1;
             this.statusBarText.Text = "";
             // 
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(3, 196);
+            this.button1.Location = new System.Drawing.Point(3, 206);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(952, 34);
+            this.button1.Size = new System.Drawing.Size(915, 34);
             this.button1.TabIndex = 2;
             this.button1.Text = "Сохранить в список";
             this.button1.UseVisualStyleBackColor = true;
@@ -395,6 +406,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.order,
@@ -406,85 +418,169 @@
             this.discount,
             this.cost,
             this.done});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 236);
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 246);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(952, 172);
+            this.dataGridView1.Size = new System.Drawing.Size(915, 177);
             this.dataGridView1.TabIndex = 3;
+            this.dataGridView1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView1_CellBeginEdit);
+            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
             // 
             // order
             // 
+            this.order.FillWeight = 30F;
             this.order.HeaderText = "№";
             this.order.Name = "order";
-            this.order.ReadOnly = true;
+            this.order.ToolTipText = "order";
             // 
             // date
             // 
             this.date.HeaderText = "Дата";
             this.date.Name = "date";
-            this.date.ReadOnly = true;
+            this.date.ToolTipText = "date";
             // 
             // name
             // 
             this.name.HeaderText = "ФИО/Название";
             this.name.Name = "name";
-            this.name.ReadOnly = true;
+            this.name.ToolTipText = "name";
             // 
             // service
             // 
             this.service.HeaderText = "Наименование";
             this.service.Name = "service";
-            this.service.ReadOnly = true;
+            this.service.ToolTipText = "service";
             // 
             // type
             // 
             this.type.HeaderText = "Вид";
             this.type.Name = "type";
-            this.type.ReadOnly = true;
+            this.type.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.type.ToolTipText = "type";
             // 
             // time
             // 
             this.time.HeaderText = "Объём";
             this.time.Name = "time";
-            this.time.ReadOnly = true;
+            this.time.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.time.ToolTipText = "time";
             // 
             // discount
             // 
+            this.discount.FillWeight = 40F;
             this.discount.HeaderText = "Скидка";
             this.discount.Name = "discount";
-            this.discount.ReadOnly = true;
+            this.discount.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.discount.ToolTipText = "discount";
             // 
             // cost
             // 
             this.cost.HeaderText = "Стоимость";
             this.cost.Name = "cost";
-            this.cost.ReadOnly = true;
+            this.cost.ToolTipText = "cost";
             // 
             // done
             // 
+            this.done.FillWeight = 50F;
             this.done.HeaderText = "Оказана";
             this.done.Name = "done";
-            this.done.ReadOnly = true;
+            this.done.ToolTipText = "done";
             // 
             // saveTableToFile
             // 
             this.saveTableToFile.Dock = System.Windows.Forms.DockStyle.Fill;
             this.saveTableToFile.Location = new System.Drawing.Point(3, 429);
             this.saveTableToFile.Name = "saveTableToFile";
-            this.saveTableToFile.Size = new System.Drawing.Size(952, 34);
+            this.saveTableToFile.Size = new System.Drawing.Size(915, 34);
             this.saveTableToFile.TabIndex = 4;
             this.saveTableToFile.Text = "Выгрузить таблицу в файл";
             this.saveTableToFile.UseVisualStyleBackColor = true;
             this.saveTableToFile.Click += new System.EventHandler(this.saveTableToFile_Click);
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripDropDownButton1,
+            this.openLogButton1,
+            this.toolStripButton1});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(921, 25);
+            this.toolStrip1.TabIndex = 1;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveMenuItem,
+            this.clearMenuItem});
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(71, 22);
+            this.toolStripDropDownButton1.Text = "Действия";
+            // 
+            // saveMenuItem
+            // 
+            this.saveMenuItem.Name = "saveMenuItem";
+            this.saveMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.saveMenuItem.Text = "Выгрузить в файл";
+            this.saveMenuItem.Click += new System.EventHandler(this.saveMenuItem_Click);
+            // 
+            // clearMenuItem
+            // 
+            this.clearMenuItem.Name = "clearMenuItem";
+            this.clearMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.clearMenuItem.Text = "Очистить таблицу";
+            this.clearMenuItem.Click += new System.EventHandler(this.clearMenuItem_Click);
+            // 
+            // openLogButton1
+            // 
+            this.openLogButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.openLogButton1.Image = ((System.Drawing.Image)(resources.GetObject("openLogButton1.Image")));
+            this.openLogButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openLogButton1.Name = "openLogButton1";
+            this.openLogButton1.Size = new System.Drawing.Size(80, 22);
+            this.openLogButton1.Text = "Открыть лог";
+            this.openLogButton1.Click += new System.EventHandler(this.openLogButton1_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.enableEditMenuItem,
+            this.disableMenuItem});
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(121, 22);
+            this.toolStripButton1.Text = "Редактор таблицы";
+            // 
+            // enableEditMenuItem
+            // 
+            this.enableEditMenuItem.Name = "enableEditMenuItem";
+            this.enableEditMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.enableEditMenuItem.Text = "Включить редактирование";
+            this.enableEditMenuItem.Click += new System.EventHandler(this.enableEditMenuItem_Click);
+            // 
+            // disableMenuItem
+            // 
+            this.disableMenuItem.Name = "disableMenuItem";
+            this.disableMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.disableMenuItem.Text = "Отключить редактирование";
+            this.disableMenuItem.Click += new System.EventHandler(this.disableMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(958, 496);
+            this.ClientSize = new System.Drawing.Size(921, 496);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -506,7 +602,10 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -540,6 +639,15 @@
         public System.Windows.Forms.RichTextBox statusBarText;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.MaskedTextBox timeInput;
+        private System.Windows.Forms.TextBox costInput;
+        private System.Windows.Forms.DateTimePicker dateInput;
+        private System.Windows.Forms.Button saveTableToFile;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem saveMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearMenuItem;
+        private System.Windows.Forms.ToolStripButton openLogButton1;
         private System.Windows.Forms.DataGridViewTextBoxColumn order;
         private System.Windows.Forms.DataGridViewTextBoxColumn date;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
@@ -549,10 +657,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn discount;
         private System.Windows.Forms.DataGridViewTextBoxColumn cost;
         private System.Windows.Forms.DataGridViewCheckBoxColumn done;
-        private System.Windows.Forms.MaskedTextBox timeInput;
-        private System.Windows.Forms.TextBox costInput;
-        private System.Windows.Forms.DateTimePicker dateInput;
-        private System.Windows.Forms.Button saveTableToFile;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripButton1;
+        private System.Windows.Forms.ToolStripMenuItem enableEditMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem disableMenuItem;
     }
 }
 
